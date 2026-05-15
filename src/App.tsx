@@ -1,13 +1,12 @@
-import { useRef, useState } from "react";
+import { GizmoHelper, GizmoViewcube, OrbitControls } from '@react-three/drei';
+import { Canvas, type ThreeElements } from '@react-three/fiber';
+import { useRef, useState } from 'react';
 
-import { GizmoHelper, GizmoViewcube, OrbitControls } from "@react-three/drei";
-import { Canvas, type ThreeElements } from "@react-three/fiber";
+import type { Mesh } from 'three';
+import './App.css';
+import Toolbar from './Toolbar';
 
-import type { Mesh } from "three";
-import "./App.css";
-import Toolbar from "./Toolbar";
-
-function Box(props: ThreeElements["mesh"]) {
+function Box(props: ThreeElements['mesh']) {
 	// This reference gives us direct access to the THREE.Mesh object
 	const ref = useRef<Mesh>(null);
 	// Hold state for hovered and clicked events
@@ -25,7 +24,7 @@ function Box(props: ThreeElements["mesh"]) {
 			onPointerOut={(_event) => hover(false)}
 		>
 			<boxGeometry args={[5, 5, 5]} />
-			<meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
+			<meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
 		</mesh>
 	);
 }
@@ -46,11 +45,12 @@ function App() {
 				<Box position={[0, 0, 0]} />
 				<OrbitControls />
 
-        <GizmoHelper
-  alignment="top-right" // widget alignment within scene
-  margin={[80, 80]}>
-   <GizmoViewcube />
-</GizmoHelper>
+				<GizmoHelper
+					alignment="top-right" // widget alignment within scene
+					margin={[80, 80]}
+				>
+					<GizmoViewcube />
+				</GizmoHelper>
 			</Canvas>
 			<Toolbar />
 		</>
