@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { fn } from "storybook/test";
+import { fn } from 'storybook/test';
 
-import Toolbar from "./Toolbar";
+import Toolbar from './Toolbar';
 
 export const ActionsData = {
 	onArchiveTask: fn(),
@@ -11,7 +11,7 @@ export const ActionsData = {
 
 const meta = {
 	component: Toolbar,
-	title: "Toolbar",
+	title: 'Toolbar',
 	args: {
 		...ActionsData,
 	},
