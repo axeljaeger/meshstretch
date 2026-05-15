@@ -1,49 +1,90 @@
 import { GizmoHelper, GizmoViewcube, OrbitControls } from '@react-three/drei';
-import { Canvas, type ThreeElements } from '@react-three/fiber';
-import { useRef, useState } from 'react';
+import { Canvas, type ThreeEvent } from '@react-three/fiber';
+import { useCallback, useState } from 'react';
 
-import type { Mesh } from 'three';
+import type { Mesh, Object3D } from 'three';
 import './App.css';
+import Box from './scene/components/Box';
+import Planes from './scene/components/Planes';
+import SceneLights from './scene/components/SceneLights';
+import SelectedCubeResizeGizmo from './scene/components/SelectedCubeResizeGizmo';
+import SelectedPlaneGizmo from './scene/components/SelectedPlaneGizmo';
+import usePlaneSelection from './scene/hooks/usePlaneSelection';
+import { PLANE_CONFIGS } from './scene/planeConfigs';
+import type { PlaneId } from './scene/types';
 import Toolbar from './Toolbar';
 
-function Box(props: ThreeElements['mesh']) {
-	// This reference gives us direct access to the THREE.Mesh object
-	const ref = useRef<Mesh>(null);
-	// Hold state for hovered and clicked events
-	const [hovered, hover] = useState(false);
-	const [clicked, click] = useState(false);
-
-	return (
-		// biome-ignore lint/a11y/noStaticElementInteractions: False positive since this is no DOM element
-		<mesh
-			{...props}
-			ref={ref}
-			scale={clicked ? 1.5 : 1}
-			onClick={(_event) => click(!clicked)}
-			onPointerOver={(_event) => hover(true)}
-			onPointerOut={(_event) => hover(false)}
-		>
-			<boxGeometry args={[5, 5, 5]} />
-			<meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-		</mesh>
-	);
-}
-
 function App() {
+	const {
+		selectedPlaneId,
+		selectedPlaneObject,
+		handlePlaneRef,
+		handlePlaneSelect,
+		clearSelection,
+	} = usePlaneSelection();
+	const [isCubeSelected, setIsCubeSelected] = useState(false);
+	const [selectedCubeObject, setSelectedCubeObject] = useState<Object3D | null>(null);
+
+	const selectedPlaneAxis =
+		PLANE_CONFIGS.find((plane) => plane.id === selectedPlaneId)?.translationAxis ?? null;
+
+	const handleBoxRef = useCallback((mesh: Mesh | null) => {
+		if (!mesh) {
+			return;
+		}
+		setSelectedCubeObject((current) => (current === mesh ? current : mesh));
+	}, []);
+
+	const handleCubeSelect = useCallback(
+		(event: ThreeEvent<PointerEvent>) => {
+			event.stopPropagation();
+			setIsCubeSelected(true);
+			clearSelection();
+		},
+		[clearSelection],
+	);
+
+	const handlePlanePointerDown = useCallback(
+		(event: ThreeEvent<PointerEvent>, id: PlaneId) => {
+			setIsCubeSelected(false);
+			handlePlaneSelect(event, id);
+		},
+		[handlePlaneSelect],
+	);
+
+	const handleCanvasPointerMissed = useCallback(() => {
+		setIsCubeSelected(false);
+		clearSelection();
+	}, [clearSelection]);
+
 	return (
 		<>
-			<Canvas orthographic camera={{ zoom: 50, position: [10, 10, 10] }}>
-				<ambientLight intensity={Math.PI / 2} />
-				<spotLight
-					position={[10, 10, 10]}
-					angle={0.15}
-					penumbra={1}
-					decay={0}
-					intensity={Math.PI}
+			<Canvas
+				orthographic
+				camera={{ zoom: 50, position: [10, 10, 10] }}
+				onPointerMissed={handleCanvasPointerMissed}
+			>
+				<SceneLights />
+				<Box
+					position={[0, 0, 0]}
+					selected={isCubeSelected}
+					onBoxRef={handleBoxRef}
+					onSelect={handleCubeSelect}
 				/>
-				<pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-				<Box position={[0, 0, 0]} />
-				<OrbitControls />
+
+				<Planes
+					planes={PLANE_CONFIGS}
+					selectedPlaneId={selectedPlaneId}
+					onPlaneRef={handlePlaneRef}
+					onPlanePointerDown={handlePlanePointerDown}
+				/>
+				<SelectedPlaneGizmo
+					selectedPlaneObject={selectedPlaneObject}
+					selectedPlaneAxis={selectedPlaneAxis}
+				/>
+				<SelectedCubeResizeGizmo selectedCubeObject={selectedCubeObject} visible={isCubeSelected} />
+
+				<OrbitControls makeDefault />
 
 				<GizmoHelper
 					alignment="top-right" // widget alignment within scene
