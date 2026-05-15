@@ -2,9 +2,8 @@ import type { ThreeElements, ThreeEvent } from '@react-three/fiber';
 import { useEffect, useRef, useState } from 'react';
 
 import type { Mesh } from 'three';
-import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
 import { CUBE_SIZE } from '../constants';
-
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 type BoxProps = ThreeElements['mesh'] & {
 	selected?: boolean;
 	onSelect?: (event: ThreeEvent<PointerEvent>) => void;

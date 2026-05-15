@@ -1,5 +1,5 @@
 import { Html, Line } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, type ThreeEvent } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 
 import type { Object3D, Ray } from 'three';
@@ -137,7 +137,7 @@ function CubeMeasurements({
 	const dragStateRef = useRef<DragState | null>(null);
 
 	const handlePointerDown = (
-		event: Parameters<NonNullable<JSX.IntrinsicElements['mesh']['onPointerDown']>>[0],
+		event: ThreeEvent<PointerEvent>,
 		planeId: PlaneId,
 		axis: Axis,
 		handlePosition: [number, number, number],
@@ -162,7 +162,7 @@ function CubeMeasurements({
 	};
 
 	const handlePointerMove = (
-		event: Parameters<NonNullable<JSX.IntrinsicElements['mesh']['onPointerMove']>>[0],
+		event: ThreeEvent<PointerEvent>,
 		planeId: PlaneId,
 	) => {
 		const dragState = dragStateRef.current;
@@ -183,7 +183,7 @@ function CubeMeasurements({
 	};
 
 	const handlePointerUp = (
-		event: Parameters<NonNullable<JSX.IntrinsicElements['mesh']['onPointerUp']>>[0],
+		event: ThreeEvent<PointerEvent>,
 	) => {
 		dragStateRef.current = null;
 		onPlaneHandleDraggingChange?.(false);
