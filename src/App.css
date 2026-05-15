@@ -182,3 +182,57 @@
 		border-right-color: var(--border);
 	}
 }
+
+.dimension-label {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 4px 8px;
+	border-radius: 999px;
+	font-family: var(--mono);
+	font-size: 12px;
+	font-weight: 600;
+	color: #f8fafc;
+	background: rgba(15, 23, 42, 0.86);
+	border: 1px solid rgba(148, 163, 184, 0.35);
+	pointer-events: auto;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	user-select: none;
+	cursor: pointer;
+	transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.dimension-label:hover {
+	border-color: rgba(248, 250, 252, 0.75);
+}
+
+.dimension-label.selected {
+	border-color: rgba(248, 250, 252, 0.9);
+	box-shadow: 0 0 0 2px rgba(248, 250, 252, 0.2);
+}
+
+.dimension-label span:first-child {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	border-radius: 999px;
+	font-size: 10px;
+	font-weight: 700;
+	color: #0f172a;
+	background: #e2e8f0;
+}
+
+.dimension-label[data-axis='x'] span:first-child {
+	background: #fb923c;
+}
+
+.dimension-label[data-axis='y'] span:first-child {
+	background: #4ade80;
+}
+
+.dimension-label[data-axis='z'] span:first-child {
+	background: #60a5fa;
+}

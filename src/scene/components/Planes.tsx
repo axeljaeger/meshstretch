@@ -1,32 +1,29 @@
-import type { ThreeEvent } from '@react-three/fiber';
-import type { Mesh } from 'three';
-
 import { PLANE_SIZE } from '../constants';
-import type { PlaneConfig, PlaneId } from '../types';
+import type { Axis, PlaneConfig, PlaneId } from '../types';
 
 type PlanesProps = {
 	planes: PlaneConfig[];
-	selectedPlaneId: PlaneId | null;
-	onPlaneRef: (id: PlaneId, mesh: Mesh | null) => void;
-	onPlanePointerDown: (event: ThreeEvent<PointerEvent>, id: PlaneId) => void;
+	planePositions: Record<PlaneId, [number, number, number]>;
+	selectedAxis: Axis | null;
+	visible: boolean;
 };
 
-function Planes({ planes, selectedPlaneId, onPlaneRef, onPlanePointerDown }: PlanesProps) {
+function Planes({ planes, planePositions, selectedAxis, visible }: PlanesProps) {
 	return (
 		<>
 			{planes.map((plane) => (
 				<mesh
 					key={plane.id}
-					ref={(mesh) => onPlaneRef(plane.id, mesh)}
-					position={plane.position}
+					position={planePositions[plane.id]}
 					rotation={plane.rotation}
-					onPointerDown={(event) => onPlanePointerDown(event, plane.id)}
+					raycast={() => {}}
 				>
 					<planeGeometry args={[PLANE_SIZE, PLANE_SIZE]} />
 					<meshStandardMaterial
 						color={plane.color}
 						transparent
-						opacity={selectedPlaneId === plane.id ? 0.45 : 0.2}
+						opacity={visible && selectedAxis === plane.translationAxis ? 0.45 : 0}
+						depthWrite={false}
 						side={2}
 					/>
 				</mesh>
