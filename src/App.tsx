@@ -42,7 +42,11 @@ function LoadedModelEditor({ model }: { model: LoadedModel }) {
 	const [isPlaneHandleDragging, setIsPlaneHandleDragging] = useState(false);
 
 	const sourceDimensions = useMemo(
-		() => ({ x: model.sourceSize[0], y: model.sourceSize[1], z: model.sourceSize[2] }),
+		() => ({
+			x: model.sourceSize[0],
+			y: model.sourceSize[1],
+			z: model.sourceSize[2],
+		}),
 		[model.sourceSize],
 	);
 
@@ -83,7 +87,8 @@ function LoadedModelEditor({ model }: { model: LoadedModel }) {
 				onShare={() => {
 					void (async () => {
 						// Fake STL export (placeholder) to test OS share-sheet behavior.
-						const baseName = model.filename.replace(/\.stl$/i, '') || 'meshstretch';
+						const baseName =
+							model.filename.replace(/\.stl$/i, '') || 'meshstretch';
 						const fileName = `${baseName}-meshstretch.stl`;
 						const stlText = `solid ${baseName}\nfacet normal 0 0 1\n outer loop\n  vertex 0 0 0\n  vertex 1 0 0\n  vertex 0 1 0\n endloop\nendfacet\nendsolid ${baseName}\n`;
 						const blob = new Blob([stlText], { type: 'model/stl' });
@@ -92,7 +97,9 @@ function LoadedModelEditor({ model }: { model: LoadedModel }) {
 						const canShareFiles =
 							typeof navigator !== 'undefined' &&
 							!!navigator.share &&
-							(navigator.canShare ? navigator.canShare({ files: [file] }) : true);
+							(navigator.canShare
+								? navigator.canShare({ files: [file] })
+								: true);
 
 						if (canShareFiles) {
 							await navigator.share({
@@ -117,7 +124,9 @@ function LoadedModelEditor({ model }: { model: LoadedModel }) {
 							URL.revokeObjectURL(url);
 						}
 					})().catch((err) => {
-						window.alert(err instanceof Error ? err.message : 'Sharing failed.');
+						window.alert(
+							err instanceof Error ? err.message : 'Sharing failed.',
+						);
 					});
 				}}
 			/>
@@ -145,7 +154,11 @@ function LoadedModelEditor({ model }: { model: LoadedModel }) {
 					geometry={model.kind === 'stl' ? model.geometry : null}
 					sourceSize={model.sourceSize}
 				/>
-				<Planes planePositions={planePositions} planeSize={planeSize} selectedAxis={selectedAxis} />
+				<Planes
+					planePositions={planePositions}
+					planeSize={planeSize}
+					selectedAxis={selectedAxis}
+				/>
 				<CubeMeasurements
 					cubeObject={meshObject}
 					dimensions={dimensions}
@@ -208,7 +221,11 @@ export default function App() {
 				id: `${file.name}-${Date.now()}`,
 				kind: 'stl',
 				filename: file.name,
-				sourceSize: [loaded.sourceDimensions.x, loaded.sourceDimensions.y, loaded.sourceDimensions.z],
+				sourceSize: [
+					loaded.sourceDimensions.x,
+					loaded.sourceDimensions.y,
+					loaded.sourceDimensions.z,
+				],
 				geometry: loaded.geometry,
 			};
 		});
@@ -231,7 +248,11 @@ export default function App() {
 				id: `${nameFromUrl}-${Date.now()}`,
 				kind: 'stl',
 				filename: nameFromUrl,
-				sourceSize: [loaded.sourceDimensions.x, loaded.sourceDimensions.y, loaded.sourceDimensions.z],
+				sourceSize: [
+					loaded.sourceDimensions.x,
+					loaded.sourceDimensions.y,
+					loaded.sourceDimensions.z,
+				],
 				geometry: loaded.geometry,
 			};
 		});
@@ -257,7 +278,11 @@ export default function App() {
 							<GizmoViewcube />
 						</GizmoHelper>
 					</Canvas>
-					<ModelDropZone onLoadFile={loadStlFile} onLoadSample={loadSample} onLoadUrl={loadStlUrl} />
+					<ModelDropZone
+						onLoadFile={loadStlFile}
+						onLoadSample={loadSample}
+						onLoadUrl={loadStlUrl}
+					/>
 				</>
 			)}
 		</div>
