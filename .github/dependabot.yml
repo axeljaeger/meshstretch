@@ -6,6 +6,13 @@ updates:
       interval: weekly
       day: monday
       time: "03:00"
+    groups:
+      storybook:
+        patterns:
+          - "@storybook/*"
+          - "storybook"
+          - "eslint-plugin-storybook"
+          - "@chromatic-com/storybook"
     open-pull-requests-limit: 10
 
   - package-ecosystem: github-actions
