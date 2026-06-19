@@ -6,7 +6,11 @@ type ModelDropZoneProps = {
 	onLoadUrl: (url: string) => Promise<void>;
 };
 
-export default function ModelDropZone({ onLoadSample, onLoadFile, onLoadUrl }: ModelDropZoneProps) {
+export default function ModelDropZone({
+	onLoadSample,
+	onLoadFile,
+	onLoadUrl,
+}: ModelDropZoneProps) {
 	const fileInputRef = useRef<HTMLInputElement | null>(null);
 	const [url, setUrl] = useState('');
 	const [error, setError] = useState<string | null>(null);
@@ -38,14 +42,17 @@ export default function ModelDropZone({ onLoadSample, onLoadFile, onLoadUrl }: M
 		try {
 			await onLoadUrl(trimmed);
 		} catch (err) {
-			setError(err instanceof Error ? err.message : 'Failed to fetch STL from URL.');
+			setError(
+				err instanceof Error ? err.message : 'Failed to fetch STL from URL.',
+			);
 		} finally {
 			setLoading(null);
 		}
 	};
 
 	return (
-		<div
+		<section
+			aria-label="STL file drop zone"
 			className="model-dropzone"
 			onDragOver={(event) => {
 				event.preventDefault();
@@ -66,10 +73,18 @@ export default function ModelDropZone({ onLoadSample, onLoadFile, onLoadUrl }: M
 				</div>
 
 				<div className="model-dropzone__actions">
-					<button className="model-dropzone__button" onClick={pickFile} type="button">
+					<button
+						className="model-dropzone__button"
+						onClick={pickFile}
+						type="button"
+					>
 						Browse
 					</button>
-					<button className="model-dropzone__button" onClick={onLoadSample} type="button">
+					<button
+						className="model-dropzone__button"
+						onClick={onLoadSample}
+						type="button"
+					>
 						Load sample
 					</button>
 				</div>
@@ -93,7 +108,9 @@ export default function ModelDropZone({ onLoadSample, onLoadFile, onLoadUrl }: M
 					</button>
 				</div>
 
-				{loading === 'file' ? <div className="model-dropzone__status">Loading file…</div> : null}
+				{loading === 'file' ? (
+					<div className="model-dropzone__status">Loading file…</div>
+				) : null}
 				{error ? <div className="model-dropzone__error">{error}</div> : null}
 
 				<input
@@ -110,6 +127,6 @@ export default function ModelDropZone({ onLoadSample, onLoadFile, onLoadUrl }: M
 					type="file"
 				/>
 			</div>
-		</div>
+		</section>
 	);
 }

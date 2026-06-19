@@ -43,9 +43,18 @@ type PlaneHandleProps = {
 function getRayAxisValue(ray: Ray, axis: Axis, anchorPoint: Vector3) {
 	const axisDirection = axisDirections[axis];
 
-	segmentStart.copy(anchorPoint).addScaledVector(axisDirection, -dragSegmentHalfLength);
-	segmentEnd.copy(anchorPoint).addScaledVector(axisDirection, dragSegmentHalfLength);
-	ray.distanceSqToSegment(segmentStart, segmentEnd, undefined, closestPointOnAxis);
+	segmentStart
+		.copy(anchorPoint)
+		.addScaledVector(axisDirection, -dragSegmentHalfLength);
+	segmentEnd
+		.copy(anchorPoint)
+		.addScaledVector(axisDirection, dragSegmentHalfLength);
+	ray.distanceSqToSegment(
+		segmentStart,
+		segmentEnd,
+		undefined,
+		closestPointOnAxis,
+	);
 
 	return closestPointOnAxis.getComponent(axisIndices[axis]);
 }
@@ -86,7 +95,11 @@ export default function PlaneHandle({
 		}
 
 		event.stopPropagation();
-		const currentRayAxisValue = getRayAxisValue(event.ray, axis, dragState.anchorPoint);
+		const currentRayAxisValue = getRayAxisValue(
+			event.ray,
+			axis,
+			dragState.anchorPoint,
+		);
 		const deltaFromStart = currentRayAxisValue - dragState.startRayAxisValue;
 		const nextAxisValue = dragState.startPlaneAxisValue + deltaFromStart;
 
@@ -105,6 +118,7 @@ export default function PlaneHandle({
 	};
 
 	return (
+		// biome-ignore lint/a11y/noStaticElementInteractions: React Three Fiber mesh pointer events are not DOM static element handlers.
 		<mesh
 			visible={selected}
 			position={position}
@@ -118,7 +132,11 @@ export default function PlaneHandle({
 			onPointerUp={endDrag}
 		>
 			<sphereGeometry args={[0.18, 16, 16]} />
-			<meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.5} />
+			<meshStandardMaterial
+				color={color}
+				emissive={color}
+				emissiveIntensity={0.5}
+			/>
 		</mesh>
 	);
 }

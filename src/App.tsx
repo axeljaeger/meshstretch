@@ -6,7 +6,7 @@ import type { BufferGeometry, Mesh, Object3D } from 'three';
 import './App.css';
 import ModelDropZone from './ModelDropZone';
 import ModelToolbar from './ModelToolbar';
-import Toolbar from './Toolbar';
+import { loadStlFromArrayBuffer } from './model/loadStl';
 import CubeMeasurements from './scene/components/CubeMeasurements';
 import { DIMENSION_LABEL_CLASS_NAME } from './scene/components/DimensionLabel';
 import Planes from './scene/components/Planes';
@@ -16,7 +16,7 @@ import { CUBE_SIZE } from './scene/constants';
 import { getClampedAxisFixedInsets } from './scene/stretchSpec';
 import type { Axis } from './scene/types';
 import { useStretchEditor } from './scene/useStretchEditor';
-import { loadStlFromArrayBuffer } from './model/loadStl';
+import Toolbar from './Toolbar';
 
 type LoadedModel =
 	| {

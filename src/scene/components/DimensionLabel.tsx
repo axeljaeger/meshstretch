@@ -1,5 +1,5 @@
 import { Html } from '@react-three/drei';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import type { Axis } from '../types';
 
@@ -32,8 +32,17 @@ export default function DimensionLabel({
 	onStartEditing,
 	onStopEditing,
 }: DimensionLabelProps) {
-	const formatValue = (nextValue: number) => (nextValue < 10 ? nextValue.toFixed(2) : nextValue.toFixed(1));
+	const formatValue = (nextValue: number) =>
+		nextValue < 10 ? nextValue.toFixed(2) : nextValue.toFixed(1);
 	const [draftValue, setDraftValue] = useState(() => formatValue(value));
+	const inputRef = useRef<HTMLInputElement | null>(null);
+
+	useEffect(() => {
+		if (editing) {
+			inputRef.current?.focus();
+			inputRef.current?.select();
+		}
+	}, [editing]);
 
 	const commit = () => {
 		const parsed = Number.parseFloat(draftValue);
@@ -44,25 +53,22 @@ export default function DimensionLabel({
 	};
 
 	return (
-		<Html center distanceFactor={10} occlude={false} position={position} sprite transform>
+		<Html
+			center
+			distanceFactor={10}
+			occlude={false}
+			position={position}
+			sprite
+			transform
+		>
 			<div
 				className={`${DIMENSION_LABEL_CLASS_NAME}${selected ? ' selected' : ''}`}
 				data-axis={axis}
-				onClick={(event) => {
-					event.stopPropagation();
-					onSelect(axis);
-				}}
-				onDoubleClick={(event) => {
-					event.stopPropagation();
-					setDraftValue(formatValue(value));
-					onStartEditing(axis);
-				}}
 			>
 				{editing ? (
 					<>
 						<span style={{ backgroundColor: color }}>{axisLabel}</span>
 						<input
-							autoFocus
 							className={`${DIMENSION_LABEL_CLASS_NAME}__input`}
 							onBlur={commit}
 							onChange={(event) => setDraftValue(event.target.value)}
@@ -76,6 +82,7 @@ export default function DimensionLabel({
 									onStopEditing();
 								}
 							}}
+							ref={inputRef}
 							type="number"
 							value={draftValue}
 						/>
@@ -86,6 +93,11 @@ export default function DimensionLabel({
 						onClick={(event) => {
 							event.stopPropagation();
 							onSelect(axis);
+						}}
+						onDoubleClick={(event) => {
+							event.stopPropagation();
+							setDraftValue(formatValue(value));
+							onStartEditing(axis);
 						}}
 						type="button"
 					>

@@ -1,4 +1,4 @@
-import { Box3, BufferGeometry, Vector3 } from 'three';
+import { Box3, type BufferGeometry, Vector3 } from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
 
 import type { Axis } from '../scene/types';
@@ -15,7 +15,9 @@ function toDimensions(vec: Vector3): Record<Axis, number> {
 	return { x: vec.x, y: vec.y, z: vec.z };
 }
 
-export function loadStlFromArrayBuffer(arrayBuffer: ArrayBuffer): LoadedStlModel {
+export function loadStlFromArrayBuffer(
+	arrayBuffer: ArrayBuffer,
+): LoadedStlModel {
 	const loader = new STLLoader();
 	const geometry = loader.parse(arrayBuffer);
 

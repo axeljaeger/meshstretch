@@ -52,7 +52,9 @@ export function createAxisStretchSpec(sourceSize = CUBE_SIZE): AxisStretchSpec {
 	};
 }
 
-export function createInitialStretchSpec(sourceSize = CUBE_SIZE): MeshStretchSpec {
+export function createInitialStretchSpec(
+	sourceSize = CUBE_SIZE,
+): MeshStretchSpec {
 	return {
 		x: createAxisStretchSpec(sourceSize),
 		y: createAxisStretchSpec(sourceSize),
@@ -60,7 +62,9 @@ export function createInitialStretchSpec(sourceSize = CUBE_SIZE): MeshStretchSpe
 	};
 }
 
-export function createInitialStretchSpecFromDimensions(dimensions: Record<Axis, number>): MeshStretchSpec {
+export function createInitialStretchSpecFromDimensions(
+	dimensions: Record<Axis, number>,
+): MeshStretchSpec {
 	return {
 		x: createAxisStretchSpec(dimensions.x),
 		y: createAxisStretchSpec(dimensions.y),
@@ -97,7 +101,10 @@ function getPlaneBounds(targetSize: number) {
 }
 
 function getMaxFixedInsetSpan(spec: AxisStretchSpec) {
-	return Math.max(0, Math.min(spec.sourceSize, spec.targetSize) - MIN_PLANE_GAP);
+	return Math.max(
+		0,
+		Math.min(spec.sourceSize, spec.targetSize) - MIN_PLANE_GAP,
+	);
 }
 
 function getMaxFixedInsetForStart(spec: AxisStretchSpec) {
@@ -108,7 +115,9 @@ function getMaxFixedInsetForEnd(spec: AxisStretchSpec) {
 	return Math.max(0, getMaxFixedInsetSpan(spec) - Math.max(0, spec.fixedStart));
 }
 
-function clampFixedInsetsToStretchableSpan(spec: AxisStretchSpec): AxisStretchSpec {
+function clampFixedInsetsToStretchableSpan(
+	spec: AxisStretchSpec,
+): AxisStretchSpec {
 	const maxFixedSpan = getMaxFixedInsetSpan(spec);
 	const fixedStart = Math.min(spec.fixedStart, maxFixedSpan);
 	const consumedStart = Math.max(0, fixedStart);
@@ -121,7 +130,10 @@ function clampFixedInsetsToStretchableSpan(spec: AxisStretchSpec): AxisStretchSp
 	};
 }
 
-function clampAxisPlaneValuesForResize(planes: AxisPlaneValues, targetSize: number): AxisPlaneValues {
+function clampAxisPlaneValuesForResize(
+	planes: AxisPlaneValues,
+	targetSize: number,
+): AxisPlaneValues {
 	let { negative, positive } = planes;
 	const planeBounds = getPlaneBounds(targetSize);
 
@@ -150,7 +162,8 @@ export function updateAxisStretchSpecTargetSize(
 	const currentPlanes = getAxisPlaneValues(spec);
 	const nextPlanes = clampAxisPlaneValuesForResize(
 		{
-			negative: -targetSize / 2 + (currentPlanes.negative + spec.targetSize / 2),
+			negative:
+				-targetSize / 2 + (currentPlanes.negative + spec.targetSize / 2),
 			positive: targetSize / 2 - (spec.targetSize / 2 - currentPlanes.positive),
 		},
 		targetSize,
@@ -178,11 +191,17 @@ export function updateAxisStretchSpecPlane(
 
 		return {
 			...spec,
-			fixedStart: Math.min(requestedNegative + half, getMaxFixedInsetForStart(spec)),
+			fixedStart: Math.min(
+				requestedNegative + half,
+				getMaxFixedInsetForStart(spec),
+			),
 		};
 	}
 
-	const requestedPositive = Math.min(planeBounds, Math.max(nextAxisValue, negative + MIN_PLANE_GAP));
+	const requestedPositive = Math.min(
+		planeBounds,
+		Math.max(nextAxisValue, negative + MIN_PLANE_GAP),
+	);
 
 	return {
 		...spec,
@@ -208,7 +227,9 @@ export function updateAxisStretchSpecFixedInsets(
 	};
 }
 
-export function resetAxisStretchSpecFixedInsets(spec: AxisStretchSpec): AxisStretchSpec {
+export function resetAxisStretchSpecFixedInsets(
+	spec: AxisStretchSpec,
+): AxisStretchSpec {
 	return {
 		...spec,
 		fixedStart: -PLANE_OFFSET,
@@ -235,7 +256,9 @@ export function getFixedInsetsFromStretchSpec(spec: MeshStretchSpec) {
 	};
 }
 
-export function getDimensionsFromStretchSpec(spec: MeshStretchSpec): Record<Axis, number> {
+export function getDimensionsFromStretchSpec(
+	spec: MeshStretchSpec,
+): Record<Axis, number> {
 	return {
 		x: spec.x.targetSize,
 		y: spec.y.targetSize,

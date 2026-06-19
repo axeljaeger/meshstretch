@@ -160,8 +160,12 @@ export function configureStretchShader(
 ) {
 	shader.uniforms.uSourceSize = { value: toVector3(uniformValues.sourceSize) };
 	shader.uniforms.uTargetSize = { value: toVector3(uniformValues.targetSize) };
-	shader.uniforms.uFixedInsetMin = { value: toVector3(uniformValues.fixedInsetMin) };
-	shader.uniforms.uFixedInsetMax = { value: toVector3(uniformValues.fixedInsetMax) };
+	shader.uniforms.uFixedInsetMin = {
+		value: toVector3(uniformValues.fixedInsetMin),
+	};
+	shader.uniforms.uFixedInsetMax = {
+		value: toVector3(uniformValues.fixedInsetMax),
+	};
 	shader.uniforms.uSelectedAxis = { value: uniformValues.selectedAxis };
 
 	replaceBeginVertex(shader);

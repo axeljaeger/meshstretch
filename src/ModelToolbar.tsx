@@ -25,10 +25,16 @@ export default function ModelToolbar({
 	return (
 		<div className="model-toolbar">
 			<div className="model-toolbar__group">
-				<div className="model-toolbar__title">{filename ?? 'No model loaded'}</div>
+				<div className="model-toolbar__title">
+					{filename ?? 'No model loaded'}
+				</div>
 			</div>
-			<div className="model-toolbar__meta">Original {formatDims(sourceDimensions)}</div>
-			<div className="model-toolbar__meta">New {formatDims(targetDimensions)}</div>
+			<div className="model-toolbar__meta">
+				Original {formatDims(sourceDimensions)}
+			</div>
+			<div className="model-toolbar__meta">
+				New {formatDims(targetDimensions)}
+			</div>
 			<button
 				className="model-toolbar__button"
 				disabled={shareDisabled}
