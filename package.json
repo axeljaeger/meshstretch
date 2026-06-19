@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "vite --port ${CMUX_PORT:-5173}",
 		"build": "tsc -b && vite build",
-		"lint": "eslint .",
+		"lint": "biome lint",
 		"preview": "vite preview",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
@@ -27,7 +27,6 @@
 		"@babel/core": "^7.29.0",
 		"@biomejs/biome": "2.4.15",
 		"@chromatic-com/storybook": "^5.1.2",
-		"@eslint/js": "^10.0.1",
 		"@rolldown/plugin-babel": "^0.2.3",
 		"@storybook/addon-a11y": "^10.4.6",
 		"@storybook/addon-docs": "^10.4.6",
@@ -41,16 +40,10 @@
 		"@vitest/browser-playwright": "^4.1.6",
 		"@vitest/coverage-v8": "^4.1.6",
 		"babel-plugin-react-compiler": "^1.0.0",
-		"eslint": "^10.3.0",
-		"eslint-plugin-react-hooks": "^7.1.1",
-		"eslint-plugin-react-refresh": "^0.5.2",
-		"eslint-plugin-storybook": "^10.4.6",
-		"globals": "^17.6.0",
 		"playwright": "^1.60.0",
 		"rollup-plugin-visualizer": "^7.0.1",
 		"storybook": "^10.4.6",
 		"typescript": "~6.0.2",
-		"typescript-eslint": "^8.59.2",
 		"vite": "^8.0.12",
 		"vitest": "^4.1.6"
 	}
