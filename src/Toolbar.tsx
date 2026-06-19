@@ -9,7 +9,11 @@ const axisLabels: Record<Axis, string> = {
 type ToolbarProps = {
 	dimensions: Record<Axis, number>;
 	fixedRanges: Record<Axis, { min: number; max: number }>;
-	onFixedInsetChange: (axis: Axis, edge: 'start' | 'end', value: number) => void;
+	onFixedInsetChange: (
+		axis: Axis,
+		edge: 'start' | 'end',
+		value: number,
+	) => void;
 	onFixedInsetReset: (axis: Axis) => void;
 	selectedAxis: Axis | null;
 };
@@ -24,7 +28,9 @@ export default function Toolbar({
 	if (!selectedAxis) {
 		return (
 			<div className="toolbar toolbar--idle">
-				<div className="toolbar__hint">Select an axis label to edit fixed ranges.</div>
+				<div className="toolbar__hint">
+					Select an axis label to edit fixed ranges.
+				</div>
 			</div>
 		);
 	}
@@ -35,14 +41,22 @@ export default function Toolbar({
 		<div className="toolbar toolbar--active">
 			<div className="toolbar__group">
 				<div className="toolbar__title">{axisLabels[selectedAxis]}</div>
-				<div className="toolbar__meta">Size {dimensions[selectedAxis].toFixed(2)}</div>
+				<div className="toolbar__meta">
+					Size {dimensions[selectedAxis].toFixed(2)}
+				</div>
 			</div>
 			<label className="toolbar__field">
 				<span>start</span>
 				<input
 					className="toolbar__input"
 					min="0"
-					onChange={(event) => onFixedInsetChange(selectedAxis, 'start', Number(event.target.value))}
+					onChange={(event) =>
+						onFixedInsetChange(
+							selectedAxis,
+							'start',
+							Number(event.target.value),
+						)
+					}
 					step="0.1"
 					type="number"
 					value={range.min.toFixed(2)}
@@ -53,7 +67,9 @@ export default function Toolbar({
 				<input
 					className="toolbar__input"
 					min="0"
-					onChange={(event) => onFixedInsetChange(selectedAxis, 'end', Number(event.target.value))}
+					onChange={(event) =>
+						onFixedInsetChange(selectedAxis, 'end', Number(event.target.value))
+					}
 					step="0.1"
 					type="number"
 					value={range.max.toFixed(2)}

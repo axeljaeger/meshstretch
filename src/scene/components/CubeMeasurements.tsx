@@ -1,12 +1,12 @@
 import { Line } from '@react-three/drei';
 import { useMemo } from 'react';
-import { Vector3 } from 'three';
 import type { Object3D } from 'three';
+import { Vector3 } from 'three';
 
 import type { Axis, PlaneId } from '../types';
 import DimensionLabel from './DimensionLabel';
-import PlaneHandle from './PlaneHandle';
 import { buildAxisMeasurements } from './measurementGeometry';
+import PlaneHandle from './PlaneHandle';
 
 const center = new Vector3();
 const axisIndices: Record<Axis, 0 | 1 | 2> = { x: 0, y: 1, z: 2 };
@@ -65,19 +65,28 @@ export default function CubeMeasurements({
 						measurement.stretchStart[axisIndices[measurement.axis]] -
 							measurement.meshStart[axisIndices[measurement.axis]],
 					) > minVisibleSegment ? (
-						<Line color={fixedSegmentColor} points={[measurement.meshStart, measurement.stretchStart]} />
+						<Line
+							color={fixedSegmentColor}
+							points={[measurement.meshStart, measurement.stretchStart]}
+						/>
 					) : null}
 					{Math.abs(
 						measurement.stretchEnd[axisIndices[measurement.axis]] -
 							measurement.stretchStart[axisIndices[measurement.axis]],
 					) > minVisibleSegment ? (
-						<Line color={measurement.color} points={[measurement.stretchStart, measurement.stretchEnd]} />
+						<Line
+							color={measurement.color}
+							points={[measurement.stretchStart, measurement.stretchEnd]}
+						/>
 					) : null}
 					{Math.abs(
 						measurement.meshEnd[axisIndices[measurement.axis]] -
 							measurement.stretchEnd[axisIndices[measurement.axis]],
 					) > minVisibleSegment ? (
-						<Line color={fixedSegmentColor} points={[measurement.stretchEnd, measurement.meshEnd]} />
+						<Line
+							color={fixedSegmentColor}
+							points={[measurement.stretchEnd, measurement.meshEnd]}
+						/>
 					) : null}
 					<DimensionLabel
 						axis={measurement.axis}

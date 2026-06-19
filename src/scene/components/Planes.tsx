@@ -10,14 +10,21 @@ type PlanesProps = {
 	planeSize: number;
 };
 
-export default function Planes({ planePositions, selectedAxis, planeSize }: PlanesProps) {
+export default function Planes({
+	planePositions,
+	selectedAxis,
+	planeSize,
+}: PlanesProps) {
 	return (
 		<group>
 			{planeConfigs
 				.filter((config) => config.axis === selectedAxis)
 				.map((config) => (
 					<Fragment key={config.id}>
-						<mesh position={planePositions[config.id]} rotation={config.rotation}>
+						<mesh
+							position={planePositions[config.id]}
+							rotation={config.rotation}
+						>
 							<planeGeometry args={[planeSize, planeSize]} />
 							<meshBasicMaterial
 								color={config.color}

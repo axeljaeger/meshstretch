@@ -1,17 +1,16 @@
 import { RoundedBox } from '@react-three/drei';
-import { useEffect, useMemo, useRef, type Ref } from 'react';
-import type { BufferGeometry, Mesh } from 'three';
-import { MeshStandardMaterial } from 'three';
+import { type Ref, useEffect, useMemo, useRef } from 'react';
+import type { BufferGeometry, Mesh, MeshStandardMaterial } from 'three';
 
 import { CUBE_SIZE } from '../constants';
-import { AXIS_INDICES } from '../stretchSpec';
-import type { Axis } from '../types';
 import {
 	configureStretchShader,
-	updateStretchShaderUniforms,
 	type StretchShader,
 	type StretchShaderUniformValues,
+	updateStretchShaderUniforms,
 } from '../shaders/stretchShader';
+import { AXIS_INDICES } from '../stretchSpec';
+import type { Axis } from '../types';
 
 type StretchableMeshProps = {
 	dimensions: Record<Axis, number>;
@@ -88,7 +87,12 @@ export default function StretchableMesh({
 	}
 
 	return (
-		<RoundedBox args={[CUBE_SIZE, CUBE_SIZE, CUBE_SIZE]} radius={0.5} smoothness={8} ref={resolvedMeshRef}>
+		<RoundedBox
+			args={[CUBE_SIZE, CUBE_SIZE, CUBE_SIZE]}
+			radius={0.5}
+			smoothness={8}
+			ref={resolvedMeshRef}
+		>
 			{material}
 		</RoundedBox>
 	);

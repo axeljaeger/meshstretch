@@ -1,6 +1,4 @@
 import { useCallback, useMemo, useState } from 'react';
-
-import type { Axis, PlaneId } from './types';
 import {
 	createInitialStretchSpec,
 	createInitialStretchSpecFromDimensions,
@@ -9,20 +7,29 @@ import {
 	getDimensionsFromStretchSpec,
 	getFixedInsetsFromStretchSpec,
 	getPlanePositionsFromStretchSpec,
+	type MeshStretchSpec,
 	resetAxisStretchSpecFixedInsets,
 	updateAxisStretchSpecFixedInsets,
 	updateAxisStretchSpecPlane,
 	updateAxisStretchSpecTargetSize,
-	type MeshStretchSpec,
 } from './stretchSpec';
+import type { Axis, PlaneId } from './types';
 
 export function useStretchEditor(sourceDimensions?: Record<Axis, number>) {
 	const [stretchSpec, setStretchSpec] = useState<MeshStretchSpec>(() =>
-		sourceDimensions ? createInitialStretchSpecFromDimensions(sourceDimensions) : createInitialStretchSpec(),
+		sourceDimensions
+			? createInitialStretchSpecFromDimensions(sourceDimensions)
+			: createInitialStretchSpec(),
 	);
 
-	const dimensions = useMemo(() => getDimensionsFromStretchSpec(stretchSpec), [stretchSpec]);
-	const fixedInsets = useMemo(() => getFixedInsetsFromStretchSpec(stretchSpec), [stretchSpec]);
+	const dimensions = useMemo(
+		() => getDimensionsFromStretchSpec(stretchSpec),
+		[stretchSpec],
+	);
+	const fixedInsets = useMemo(
+		() => getFixedInsetsFromStretchSpec(stretchSpec),
+		[stretchSpec],
+	);
 	const planePositions = useMemo(
 		() => getPlanePositionsFromStretchSpec(stretchSpec),
 		[stretchSpec],
@@ -35,14 +42,17 @@ export function useStretchEditor(sourceDimensions?: Record<Axis, number>) {
 		}));
 	}, []);
 
-	const handlePlaneHandleMove = useCallback((id: PlaneId, axisValue: number) => {
-		const axis = getAxisByPlaneId(id);
+	const handlePlaneHandleMove = useCallback(
+		(id: PlaneId, axisValue: number) => {
+			const axis = getAxisByPlaneId(id);
 
-		setStretchSpec((current) => ({
-			...current,
-			[axis]: updateAxisStretchSpecPlane(current[axis], id, axisValue),
-		}));
-	}, []);
+			setStretchSpec((current) => ({
+				...current,
+				[axis]: updateAxisStretchSpecPlane(current[axis], id, axisValue),
+			}));
+		},
+		[],
+	);
 
 	const handleFixedInsetChange = useCallback(
 		(axis: Axis, edge: 'start' | 'end', value: number) => {

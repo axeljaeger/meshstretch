@@ -16,7 +16,9 @@ import {
 
 describe('stretchSpec', () => {
 	it('derives the default plane positions from the stretch spec', () => {
-		const positions = getPlanePositionsFromStretchSpec(createInitialStretchSpec());
+		const positions = getPlanePositionsFromStretchSpec(
+			createInitialStretchSpec(),
+		);
 
 		expect(positions.nx[0]).toBeCloseTo(-(CUBE_SIZE / 2 + PLANE_OFFSET));
 		expect(positions.px[0]).toBeCloseTo(CUBE_SIZE / 2 + PLANE_OFFSET);
@@ -33,10 +35,16 @@ describe('stretchSpec', () => {
 	});
 
 	it('keeps the plane gap above the minimum when dragging', () => {
-		const moved = updateAxisStretchSpecPlane(createAxisStretchSpec(), 'nx', CUBE_SIZE / 2 + PLANE_OFFSET);
+		const moved = updateAxisStretchSpecPlane(
+			createAxisStretchSpec(),
+			'nx',
+			CUBE_SIZE / 2 + PLANE_OFFSET,
+		);
 		const planes = getAxisPlaneValues(moved);
 
-		expect(planes.positive - planes.negative).toBeGreaterThanOrEqual(MIN_PLANE_GAP);
+		expect(planes.positive - planes.negative).toBeGreaterThanOrEqual(
+			MIN_PLANE_GAP,
+		);
 		expect(planes.negative).toBeCloseTo(planes.positive - MIN_PLANE_GAP);
 	});
 
@@ -61,7 +69,10 @@ describe('stretchSpec', () => {
 	});
 
 	it('limits fixed insets by the source mesh after enlarging the target size', () => {
-		const resized = updateAxisStretchSpecTargetSize(createAxisStretchSpec(), 10);
+		const resized = updateAxisStretchSpecTargetSize(
+			createAxisStretchSpec(),
+			10,
+		);
 
 		expect(updateAxisStretchSpecFixedInsets(resized, 8, 2)).toMatchObject({
 			fixedStart: CUBE_SIZE - MIN_PLANE_GAP,
@@ -70,7 +81,10 @@ describe('stretchSpec', () => {
 	});
 
 	it('keeps dragged planes from collapsing the source stretch region after resize', () => {
-		const resized = updateAxisStretchSpecTargetSize(createAxisStretchSpec(), 10);
+		const resized = updateAxisStretchSpecTargetSize(
+			createAxisStretchSpec(),
+			10,
+		);
 		const moved = updateAxisStretchSpecPlane(resized, 'nx', 3.5);
 
 		expect(getClampedAxisFixedInsets(moved)).toEqual({
@@ -80,7 +94,10 @@ describe('stretchSpec', () => {
 	});
 
 	it('clamps the dragged plane without pushing the opposite plane', () => {
-		const resized = updateAxisStretchSpecTargetSize(createAxisStretchSpec(), 10);
+		const resized = updateAxisStretchSpecTargetSize(
+			createAxisStretchSpec(),
+			10,
+		);
 		const withStartInset = updateAxisStretchSpecFixedInsets(resized, 2, 0);
 		const moved = updateAxisStretchSpecPlane(withStartInset, 'px', -1);
 
