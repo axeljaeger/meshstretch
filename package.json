@@ -18,14 +18,14 @@
 	"dependencies": {
 		"@react-three/drei": "^10.7.7",
 		"@react-three/fiber": "^9.6.1",
-		"@types/three": "^0.184.1",
-		"react": "^19.2.6",
+		"@types/three": "^0.185.1",
+		"react": "^19.2.8",
 		"react-dom": "^19.2.6",
-		"three": "^0.184.0"
+		"three": "^0.185.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^8.0.1",
-		"@biomejs/biome": "2.5.0",
+		"@biomejs/biome": "2.5.5",
 		"@chromatic-com/storybook": "^5.1.2",
 		"@rolldown/plugin-babel": "^0.2.3",
 		"@storybook/addon-a11y": "^10.4.6",
@@ -36,15 +36,15 @@
 		"@types/node": "^26.0.0",
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",
-		"@vitejs/plugin-react": "^6.0.1",
+		"@vitejs/plugin-react": "^6.0.4",
 		"@vitest/browser-playwright": "^4.1.6",
 		"@vitest/coverage-v8": "^4.1.6",
 		"babel-plugin-react-compiler": "^1.0.0",
-		"playwright": "^1.61.0",
+		"playwright": "^1.62.0",
 		"rollup-plugin-visualizer": "^7.0.1",
 		"storybook": "^10.4.6",
 		"typescript": "~6.0.2",
-		"vite": "^8.0.12",
+		"vite": "^8.1.5",
 		"vitest": "^4.1.6"
 	}
 }
