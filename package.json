@@ -16,8 +16,8 @@
 		"analyze": "vite build"
 	},
 	"dependencies": {
-		"@react-three/drei": "^10.7.7",
-		"@react-three/fiber": "^9.6.1",
+		"@react-three/drei": "^10.7.8",
+		"@react-three/fiber": "^9.7.0",
 		"@types/three": "^0.185.1",
 		"react": "^19.2.8",
 		"react-dom": "^19.2.6",
@@ -44,7 +44,7 @@
 		"rollup-plugin-visualizer": "^7.0.1",
 		"storybook": "^10.5.5",
 		"typescript": "~6.0.2",
-		"vite": "^8.1.5",
+		"vite": "^8.2.1",
 		"vitest": "^4.1.6"
 	}
 }
