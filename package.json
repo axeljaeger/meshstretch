@@ -44,7 +44,7 @@
 		"rollup-plugin-visualizer": "^7.0.1",
 		"storybook": "^10.5.5",
 		"typescript": "~6.0.2",
-		"vite": "^8.1.5",
+		"vite": "^8.2.1",
 		"vitest": "^4.1.6"
 	}
 }
