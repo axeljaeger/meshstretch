@@ -25,7 +25,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^8.0.1",
-		"@biomejs/biome": "2.5.13",
+		"@biomejs/biome": "2.5.14",
 		"@chromatic-com/storybook": "^5.3.0",
 		"@rolldown/plugin-babel": "^0.2.3",
 		"@storybook/addon-a11y": "^10.5.7",
@@ -41,7 +41,7 @@
 		"@vitest/coverage-v8": "^4.1.6",
 		"babel-plugin-react-compiler": "^1.0.0",
 		"playwright": "^1.62.1",
-		"rollup-plugin-visualizer": "^7.0.1",
+		"rollup-plugin-visualizer": "^7.1.1",
 		"storybook": "^10.5.7",
 		"typescript": "~7.0.2",
 		"vite": "^8.2.1",
