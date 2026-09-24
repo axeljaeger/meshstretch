@@ -13,6 +13,36 @@ updates:
           - "storybook"
           - "eslint-plugin-storybook"
           - "@chromatic-com/storybook"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      three:
+        patterns:
+          - "three"
+          - "@types/three"
+          - "@react-three/*"
+      vite:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+      vitest:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+          - "playwright"
+      babel:
+        patterns:
+          - "@babel/*"
+          - "@rolldown/plugin-babel"
+          - "babel-plugin-*"
+          - "@types/babel__core"
+      typescript:
+        patterns:
+          - "typescript"
+          - "@types/node"
     open-pull-requests-limit: 10
 
   - package-ecosystem: github-actions
