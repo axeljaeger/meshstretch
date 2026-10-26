@@ -38,17 +38,17 @@ This is the basis for the deformation logic.
 
 These are the terms we should use consistently when working on the app.
 
-| Term | Meaning | Current implementation term |
-| --- | --- | --- |
-| **source mesh** | The original, unmodified mesh before resizing | currently represented by the built-in prototype box |
-| **target size** | The desired final width/height/depth after deformation | `targetSize` |
-| **axis** | One of `x`, `y`, `z` | `Axis` |
-| **fixed start range** | The preserved region near the negative side of an axis | `fixedInsetMin` |
-| **fixed end range** | The preserved region near the positive side of an axis | `fixedInsetMax` |
-| **stretch range** | The middle region between the two fixed ranges that is allowed to deform | derived from source size minus fixed insets |
-| **plane handle** | The draggable boundary that defines where a fixed range ends and the stretch range begins | `planePositions`, `Planes`, plane ids like `nx`, `px` |
-| **deformation shader** | The shader logic that maps source vertex positions to stretched positions | custom vertex shader in `Box.tsx` |
-| **fixed-range highlight** | Visual feedback showing which parts are preserved instead of stretched | custom fragment shader in `Box.tsx` |
+| Term                      | Meaning                                                                                   | Current implementation term                           |
+| ------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| **source mesh**           | The original, unmodified mesh before resizing                                             | currently represented by the built-in prototype box   |
+| **target size**           | The desired final width/height/depth after deformation                                    | `targetSize`                                          |
+| **axis**                  | One of `x`, `y`, `z`                                                                      | `Axis`                                                |
+| **fixed start range**     | The preserved region near the negative side of an axis                                    | `fixedInsetMin`                                       |
+| **fixed end range**       | The preserved region near the positive side of an axis                                    | `fixedInsetMax`                                       |
+| **stretch range**         | The middle region between the two fixed ranges that is allowed to deform                  | derived from source size minus fixed insets           |
+| **plane handle**          | The draggable boundary that defines where a fixed range ends and the stretch range begins | `planePositions`, `Planes`, plane ids like `nx`, `px` |
+| **deformation shader**    | The shader logic that maps source vertex positions to stretched positions                 | custom vertex shader in `Box.tsx`                     |
+| **fixed-range highlight** | Visual feedback showing which parts are preserved instead of stretched                    | custom fragment shader in `Box.tsx`                   |
 
 ## Intended user workflow
 

@@ -11,5 +11,5 @@ jobs:
       - uses: actions/checkout@v7
       - uses: biomejs/setup-biome@v2
         with:
-          version: 2.5.15
+          version: latest
       - run: biome ci --reporter github
